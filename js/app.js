@@ -70,9 +70,13 @@ createBoard()
 
 function checkMatch() {
     const cards = document.querySelectorAll('#grid img')
+    const resultDisplay = document.querySelector('#result')
     const optionOneId = cardsChosenIds[0]
     const optionTwoId = cardsChosenIds[1]
+
     if (optionOneId == optionTwoId) {
+        cards[optionOneId].setAttribute('src', 'images/blank.png')
+        cards[optionTwoId].setAttribute('src', 'images/blank.png')
         alert('You have clicked the same card!')
     }
 
@@ -84,9 +88,19 @@ function checkMatch() {
         cards[optionTwoId].removeEventListener('click', flipCard)
         cardsWon.push(cardsChosen)
 
+    } else {
+        cards[optionOneId].setAttribute('src', 'img/blank.png')
+        cards[optionTwoId].setAttribute('src', 'img/blank.png')
+        alert('Sorry, try again!')
     }
+
+    resultDisplay.textContent = cardsWon.length
     cardsChosen = []
     cardsChosenIds = []
+
+    if (cardsWon.length == cardArray.length / 2) {
+        resultDisplay.textContent = 'Congratulations, you found them all!'
+    }
 }
 
 function flipCard() {
